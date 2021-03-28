@@ -1,5 +1,6 @@
 import sqlalchemy
 from sqlalchemy import create_engine
+import pandas as pd
 
 from pandas import DataFrame
 
@@ -8,8 +9,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import folium
-
-import pandas as pd
 
 import circlify
 
@@ -84,7 +83,7 @@ def graph_notifications_by_age(conn, min_age, max_age, min_date, max_date):
 
 def top_20_cities_notifications(conn):
     sql = "SELECT municipioNotificacao, count(row_id) as cnt from dados_covid_mg GROUP BY municipioNotificacao ORDER BY cnt DESC LIMIT 21"
-    m = folium.Map(location=[-19.8157,-43.9542], tiles="OpenStreetMap", zoom_start=6, width=700, height=700)
+    m = folium.Map(location=[-19.8157,-43.9542], tiles="OpenStreetMap", zoom_start=6, width=1200, height=600)
 
     rs = conn.execute(sql)
     df = DataFrame(rs.fetchall())
@@ -186,7 +185,7 @@ def top_20_cities_notifications(conn):
             fill_color='crimson'
         ).add_to(m)
 
-    m.save('covid_data_viewer/templates/maps/top_20_cities_notifications.html')
+    m.save('/home/arthur/sib-covid/covid_data_viewer/templates/mapstop_20_cities_notifications.html')
 
 def graph_notifications_by_gender(conn, min_date, max_date):
     sql = "SELECT sexo, count(sexo) FROM dados_covid_mg "
@@ -220,7 +219,7 @@ def graph_notifications_by_gender(conn, min_date, max_date):
 def test_results_by_date(conn, min_date, max_date):
     sql = "SELECT resultadoTeste, count(resultadoTeste) FROM dados_covid_mg "
     sql = sql + "WHERE resultadoTeste != \"NULL\" AND dataNotificacao >= \"{min_date_value}\" AND dataNotificacao <= \"{max_date_value}\"  "
-    sql = sql + "GROUP BY resultadoTeste"
+    sql = sql + "AND resultadoTeste != \"Inconclusivo ou Indeterminado\"GROUP BY resultadoTeste"
 
     sql = sql.format(min_date_value=min_date, max_date_value=max_date)
 
@@ -276,30 +275,47 @@ def evolution_of_cases(conn):
     internadoUTI = DataFrame(rs.fetchall())
     internadoUTI = internadoUTI.rename(columns={0 : 'evolucaoCaso', 1 : 'dataEncerramento', 2 : 'notificacoes'})
 
-    df = internado.append(internadoUTI, ignore_index=True)
+    sql = "select evolucaoCaso, dataEncerramento, count(evolucaoCaso) from dados_covid_mg where evolucaoCaso = \"Cura\" and dataEncerramento != \"NULL\" group by dataEncerramento;"
+    rs = conn.execute(sql)
+    cura = DataFrame(rs.fetchall())
+    cura = cura.rename(columns={0 : 'evolucaoCaso', 1 : 'dataEncerramento', 2 : 'notificacoes'})
+
+    sql = "select evolucaoCaso, dataEncerramento, count(evolucaoCaso) from dados_covid_mg where evolucaoCaso = \"ï¿½bito\" and dataEncerramento != \"NULL\" group by dataEncerramento;"
+    rs = conn.execute(sql)
+    obito = DataFrame(rs.fetchall())
+    obito = obito.rename(columns={0 : 'evolucaoCaso', 1 : 'dataEncerramento', 2 : 'notificacoes'})
+
+    sql = "select evolucaoCaso, dataEncerramento, count(evolucaoCaso) from dados_covid_mg where evolucaoCaso = \"Em tratamento domiciliar\" and dataEncerramento != \"NULL\" group by dataEncerramento;"
+    rs = conn.execute(sql)
+    domiciliar = DataFrame(rs.fetchall())
+    domiciliar = domiciliar.rename(columns={0 : 'evolucaoCaso', 1 : 'dataEncerramento', 2 : 'notificacoes'})
+
+    df = ((((internado.append(internadoUTI, ignore_index=True)).append(obito, ignore_index=True)).append(cura, ignore_index=True)).append(domiciliar, ignore_index=True))
+
+    print(df)
     
     # Create a grid : initialize it
-    g = sns.FacetGrid(df, col='evolucaoCaso', hue='evolucaoCaso', col_wrap=4, )
+    #g = sns.FacetGrid(df, col='evolucaoCaso', hue='evolucaoCaso', col_wrap=4, )
 
     # Add the line over the area with the plot function
-    g = g.map(plt.plot, 'dataEncerramento', 'notificacoes')
+    #g = g.map(plt.plot, 'dataEncerramento', 'notificacoes')
     
     # Fill the area with fill_between
-    g = g.map(plt.fill_between, 'dataEncerramento', 'notificacoes', alpha=0.2).set_titles("{col_name} evolucaoCaso")
+    #g = g.map(plt.fill_between, 'dataEncerramento', 'notificacoes', alpha=0.2).set_titles("{col_name} evolucaoCaso")
     
     # Control the title of each facet
-    g = g.set_titles("{col_name}")
+    #g = g.set_titles("{col_name}")
     
     # Add a title for the whole plot
-    plt.subplots_adjust(top=0.92)
-    g = g.fig.suptitle('Evolution of the value of stuff in 16 countries')
+    #plt.subplots_adjust(top=0.92)
+    #g = g.fig.suptitle('Evolução dos casos notificados')
 
     # Show the graph
-    plt.show()
+    #plt.show()
 
 if __name__ == "__main__":
-    db_user=""
-    db_password=""
+    db_user="root"
+    db_password="@rthur96"
     db_name="sib_covid"
 
     conn = get_db_connection(db_user, db_password, db_name)
@@ -308,10 +324,29 @@ if __name__ == "__main__":
     max_age = 30
     min_date = "2020-01-01"
     max_date = "2021-02-02"
-    graph_notifications_by_age(conn, min_age, max_age, min_date, max_date)
-    graph_notifications_by_gender(conn, min_date, max_date)
 
-    test_results_by_date(conn, min_date, max_date)
-    top_20_cities_notifications(conn)
+    #homepage
+    #top_20_cities_notifications(conn)
+
+    #notificacoes
+    #graph_notifications_by_age(conn, min_age, max_age, min_date, max_date)
+    #graph_notifications_by_gender(conn, min_date, max_date)
+
+    #casos confirmados
+    #graph_notifications_by_age(conn, min_age, max_age, min_date, max_date)
+    #graph_notifications_by_gender(conn, min_date, max_date)
+
+    #internacao
+    #graph_notifications_by_age(conn, min_age, max_age, min_date, max_date)
+    #graph_notifications_by_gender(conn, min_date, max_date)
+
+    #óbitos
+    #graph_notifications_by_age(conn, min_age, max_age, min_date, max_date)
+    #graph_notifications_by_gender(conn, min_date, max_date)
+
+    #testes
+    #test_results_by_date(conn, min_date, max_date)
+
+    #evolucao
     evolution_of_cases(conn)
 

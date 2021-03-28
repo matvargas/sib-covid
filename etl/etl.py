@@ -48,4 +48,4 @@ if __name__ == "__main__":
         df = get_dataframe(csv_file)
         clean_dataframe(df)
         format_date_values(df)
-        write_to_database(df, "", "", "sib_covid", "dados_covid_mg")
+        write_to_database(df, "root", "@rthur96", "sib_covid", "dados_covid_mg")

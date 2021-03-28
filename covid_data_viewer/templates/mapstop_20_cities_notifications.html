@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_dfddae650e04499fb0f178a6ad40b0d1 {
+                    position: relative;
+                    width: 1200.0px;
+                    height: 600.0px;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_dfddae650e04499fb0f178a6ad40b0d1" ></div>
+        
+</body>
+<script>    
+    
+            var map_dfddae650e04499fb0f178a6ad40b0d1 = L.map(
+                "map_dfddae650e04499fb0f178a6ad40b0d1",
+                {
+                    center: [-19.8157, -43.9542],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 6,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_629da5466f984730baffc933986002fa = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+            var circle_27c46e3a5569441396f398b7faf167c4 = L.circle(
+                [-19.8157, -43.9542],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 151849.05838109186, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_c1ea73efc44c4fe88c41d12320aabe38 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_01b63089963f4775ab5cc6efeda4ef2d = $(`<div id="html_01b63089963f4775ab5cc6efeda4ef2d" style="width: 100.0%; height: 100.0%;">Belo Horizonte - Notificações: 580328</div>`)[0];
+            popup_c1ea73efc44c4fe88c41d12320aabe38.setContent(html_01b63089963f4775ab5cc6efeda4ef2d);
+        
+
+        circle_27c46e3a5569441396f398b7faf167c4.bindPopup(popup_c1ea73efc44c4fe88c41d12320aabe38)
+        ;
+
+        
+    
+    
+            var circle_16df16a1df1c4713b0201e964278bafe = L.circle(
+                [-18.9113, -48.2622],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 33983.974587508186, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_4bafc158b8f646f69ac0222f27ae7a6e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_15ead45cc5d341719beb86bca5dfdd55 = $(`<div id="html_15ead45cc5d341719beb86bca5dfdd55" style="width: 100.0%; height: 100.0%;">Uberlândia - Notificações: 129878</div>`)[0];
+            popup_4bafc158b8f646f69ac0222f27ae7a6e.setContent(html_15ead45cc5d341719beb86bca5dfdd55);
+        
+
+        circle_16df16a1df1c4713b0201e964278bafe.bindPopup(popup_4bafc158b8f646f69ac0222f27ae7a6e)
+        ;
+
+        
+    
+    
+            var circle_382d2624436b4707a2383f02f0bee882 = L.circle(
+                [-19.9386, -44.0529],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 28227.176477745423, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_d30402694c354672a5e22456c9f5dba5 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_507d1405f23b46f1bd7c08e414ee3954 = $(`<div id="html_507d1405f23b46f1bd7c08e414ee3954" style="width: 100.0%; height: 100.0%;">Contagem - Notificações: 107877</div>`)[0];
+            popup_d30402694c354672a5e22456c9f5dba5.setContent(html_507d1405f23b46f1bd7c08e414ee3954);
+        
+
+        circle_382d2624436b4707a2383f02f0bee882.bindPopup(popup_d30402694c354672a5e22456c9f5dba5)
+        ;
+
+        
+    
+    
+            var circle_caf51feb671c482e8246243897e599fe = L.circle(
+                [-19.9676, -44.1991],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19707.502533203115, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_17dda14faad24a1b8dd361fe1d7d7687 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_8f38b40b03744098817df5dfbab091d1 = $(`<div id="html_8f38b40b03744098817df5dfbab091d1" style="width: 100.0%; height: 100.0%;">Betim - Notificações: 75317</div>`)[0];
+            popup_17dda14faad24a1b8dd361fe1d7d7687.setContent(html_8f38b40b03744098817df5dfbab091d1);
+        
+
+        circle_caf51feb671c482e8246243897e599fe.bindPopup(popup_17dda14faad24a1b8dd361fe1d7d7687)
+        ;
+
+        
+    
+    
+            var circle_a3ef5f44788a444ca11d3b2f615f0b39 = L.circle(
+                [-19.469, -42.5367],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17415.877704999748, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_eac140bff8d945eda198dcc354f781f1 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c4ebf6692560437dab5c58c613d4cff6 = $(`<div id="html_c4ebf6692560437dab5c58c613d4cff6" style="width: 100.0%; height: 100.0%;">Ipatinga - Notificações: 66559</div>`)[0];
+            popup_eac140bff8d945eda198dcc354f781f1.setContent(html_c4ebf6692560437dab5c58c613d4cff6);
+        
+
+        circle_a3ef5f44788a444ca11d3b2f615f0b39.bindPopup(popup_eac140bff8d945eda198dcc354f781f1)
+        ;
+
+        
+    
+    
+            var circle_b6fa39c4a067489f94c563a89cdb2ab8 = L.circle(
+                [-16.737, -43.8647],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15515.174033834042, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_30a3f8085bf04caeb25cdf9c098c6ac3 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_4a7bb5ed80124b75b542292b7c050497 = $(`<div id="html_4a7bb5ed80124b75b542292b7c050497" style="width: 100.0%; height: 100.0%;">Montes Claros - Notificações: 59295</div>`)[0];
+            popup_30a3f8085bf04caeb25cdf9c098c6ac3.setContent(html_4a7bb5ed80124b75b542292b7c050497);
+        
+
+        circle_b6fa39c4a067489f94c563a89cdb2ab8.bindPopup(popup_30a3f8085bf04caeb25cdf9c098c6ac3)
+        ;
+
+        
+    
+    
+            var circle_49456a660fcf48eca7cea035e5ed3416 = L.circle(
+                [-19.7502, -47.9325],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14021.876146809995, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_fd9b7e20b92145a38059c38f4f21ce91 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a9135bc44cf5466b901ad4288cd208e1 = $(`<div id="html_a9135bc44cf5466b901ad4288cd208e1" style="width: 100.0%; height: 100.0%;">Uberaba - Notificações: 53588</div>`)[0];
+            popup_fd9b7e20b92145a38059c38f4f21ce91.setContent(html_a9135bc44cf5466b901ad4288cd208e1);
+        
+
+        circle_49456a660fcf48eca7cea035e5ed3416.bindPopup(popup_fd9b7e20b92145a38059c38f4f21ce91)
+        ;
+
+        
+    
+    
+            var circle_7139d19162894489bf8db758bde38e4c = L.circle(
+                [-21.7642, -43.3496],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13493.321436491338, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_421d1ab0d5524364a3a5a67ddf3a8b91 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5ef9d7f7ca4f4091918b003135356d3b = $(`<div id="html_5ef9d7f7ca4f4091918b003135356d3b" style="width: 100.0%; height: 100.0%;">Juiz de Fora - Notificações: 51568</div>`)[0];
+            popup_421d1ab0d5524364a3a5a67ddf3a8b91.setContent(html_5ef9d7f7ca4f4091918b003135356d3b);
+        
+
+        circle_7139d19162894489bf8db758bde38e4c.bindPopup(popup_421d1ab0d5524364a3a5a67ddf3a8b91)
+        ;
+
+        
+    
+    
+            var circle_8f9c1e661113468eba1945f6e07aaecd = L.circle(
+                [-18.8505, -41.9481],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10654.302324136175, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_b9bdf6c0fac345588e896a15ce2285a5 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_0078cc711ffd486c832fcaa4121d2878 = $(`<div id="html_0078cc711ffd486c832fcaa4121d2878" style="width: 100.0%; height: 100.0%;">Governador Valadares - Notificações: 40718</div>`)[0];
+            popup_b9bdf6c0fac345588e896a15ce2285a5.setContent(html_0078cc711ffd486c832fcaa4121d2878);
+        
+
+        circle_8f9c1e661113468eba1945f6e07aaecd.bindPopup(popup_b9bdf6c0fac345588e896a15ce2285a5)
+        ;
+
+        
+    
+    
+            var circle_f0b154dd0a9e4637b41563932bba8361 = L.circle(
+                [-19.4679, -44.2477],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10137.522347463233, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_17fa6514f4ea4fb58f30f02e22af95ae = L.popup({"maxWidth": "100%"});
+
+        
+            var html_48363a5cabc14e2e80b4ff1cd7f55a4a = $(`<div id="html_48363a5cabc14e2e80b4ff1cd7f55a4a" style="width: 100.0%; height: 100.0%;">Sete Lagoas - Notificações: 38743</div>`)[0];
+            popup_17fa6514f4ea4fb58f30f02e22af95ae.setContent(html_48363a5cabc14e2e80b4ff1cd7f55a4a);
+        
+
+        circle_f0b154dd0a9e4637b41563932bba8361.bindPopup(popup_17fa6514f4ea4fb58f30f02e22af95ae)
+        ;
+
+        
+    
+    
+            var circle_708108a3ba5e40998df2fffd08068f40 = L.circle(
+                [-22.2341, -45.9332],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8902.745279149498, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_e66385f6270b4b63952816b23095eaca = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e0a3a2fa4ee6446daa48be010025c997 = $(`<div id="html_e0a3a2fa4ee6446daa48be010025c997" style="width: 100.0%; height: 100.0%;">Pouso Alegre - Notificações: 34024</div>`)[0];
+            popup_e66385f6270b4b63952816b23095eaca.setContent(html_e0a3a2fa4ee6446daa48be010025c997);
+        
+
+        circle_708108a3ba5e40998df2fffd08068f40.bindPopup(popup_e66385f6270b4b63952816b23095eaca)
+        ;
+
+        
+    
+    
+            var circle_06bfd1be41164d37b283deac6ee6c8d8 = L.circle(
+                [-19.6657, -43.2121],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8713.82621932273, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_65a0bc5c74be48b1bb7106ec891033b0 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ee92f0c7ed214ddbb3c05a6a00efd98c = $(`<div id="html_ee92f0c7ed214ddbb3c05a6a00efd98c" style="width: 100.0%; height: 100.0%;">Itabira - Notificações: 33302</div>`)[0];
+            popup_65a0bc5c74be48b1bb7106ec891033b0.setContent(html_ee92f0c7ed214ddbb3c05a6a00efd98c);
+        
+
+        circle_06bfd1be41164d37b283deac6ee6c8d8.bindPopup(popup_65a0bc5c74be48b1bb7106ec891033b0)
+        ;
+
+        
+    
+    
+            var circle_fa1f606e7444462198a74957c52d4543 = L.circle(
+                [-20.1394, -44.8872],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8187.626455733216, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_5c7ec7e1067a4008af4199fcbf23b0f5 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_899238838e34447da99ec9c06463322e = $(`<div id="html_899238838e34447da99ec9c06463322e" style="width: 100.0%; height: 100.0%;">Divinópolis - Notificações: 31291</div>`)[0];
+            popup_5c7ec7e1067a4008af4199fcbf23b0f5.setContent(html_899238838e34447da99ec9c06463322e);
+        
+
+        circle_fa1f606e7444462198a74957c52d4543.bindPopup(popup_5c7ec7e1067a4008af4199fcbf23b0f5)
+        ;
+
+        
+    
+    
+            var circle_3c092632523a4dbda331992fdd318d02 = L.circle(
+                [-19.9876, -43.8463],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7746.98975663588, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_74a5498dec7445c0ba3fecdccb3bc49d = L.popup({"maxWidth": "100%"});
+
+        
+            var html_6166fa16a2ad4f07bf22d0c7b0fa07d0 = $(`<div id="html_6166fa16a2ad4f07bf22d0c7b0fa07d0" style="width: 100.0%; height: 100.0%;">Nova Lima - Notificações: 29607</div>`)[0];
+            popup_74a5498dec7445c0ba3fecdccb3bc49d.setContent(html_6166fa16a2ad4f07bf22d0c7b0fa07d0);
+        
+
+        circle_3c092632523a4dbda331992fdd318d02.bindPopup(popup_74a5498dec7445c0ba3fecdccb3bc49d)
+        ;
+
+        
+    
+    
+            var circle_2e8af95331fa4794a5889e4dd177d7b2 = L.circle(
+                [-21.1208, -42.943],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6332.713415411949, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_b9745cb54eed42fb8ab416791c43b02c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_50729780be3841d583c2029a29e26900 = $(`<div id="html_50729780be3841d583c2029a29e26900" style="width: 100.0%; height: 100.0%;">Ubá - Notificações: 24202</div>`)[0];
+            popup_b9745cb54eed42fb8ab416791c43b02c.setContent(html_50729780be3841d583c2029a29e26900);
+        
+
+        circle_2e8af95331fa4794a5889e4dd177d7b2.bindPopup(popup_b9745cb54eed42fb8ab416791c43b02c)
+        ;
+
+        
+    
+    
+            var circle_91d0c706cb944ae3830e1faf8379db1d = L.circle(
+                [-18.651, -48.1854],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6274.624729426432, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_2f6de2c20e2b4028b141ed598a469916 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_f5f7b04930354f9cb7f4bf39056f9cc7 = $(`<div id="html_f5f7b04930354f9cb7f4bf39056f9cc7" style="width: 100.0%; height: 100.0%;">Araguari - Notificações: 23980</div>`)[0];
+            popup_2f6de2c20e2b4028b141ed598a469916.setContent(html_f5f7b04930354f9cb7f4bf39056f9cc7);
+        
+
+        circle_91d0c706cb944ae3830e1faf8379db1d.bindPopup(popup_2f6de2c20e2b4028b141ed598a469916)
+        ;
+
+        
+    
+    
+            var circle_514d08a0be5a456d8580ae6db1d81930 = L.circle(
+                [-21.1303, -42.3674],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6150.597535024926, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_4cc37961a27548e49427a607830ef98a = L.popup({"maxWidth": "100%"});
+
+        
+            var html_4f936ffc424341eea456246f6134abf8 = $(`<div id="html_4f936ffc424341eea456246f6134abf8" style="width: 100.0%; height: 100.0%;">Muriaé - Notificações: 23506</div>`)[0];
+            popup_4cc37961a27548e49427a607830ef98a.setContent(html_4f936ffc424341eea456246f6134abf8);
+        
+
+        circle_514d08a0be5a456d8580ae6db1d81930.bindPopup(popup_4cc37961a27548e49427a607830ef98a)
+        ;
+
+        
+    
+    
+            var circle_375893e88e1b4c7fac815000e74bd922 = L.circle(
+                [-20.3856, -43.5035],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6114.226691097059, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_97b32c8e70d54bfe9b3794c86438c8ce = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d2cd26d238864ef6ac1222238f331856 = $(`<div id="html_d2cd26d238864ef6ac1222238f331856" style="width: 100.0%; height: 100.0%;">Ouro Preto - Notificações: 23367</div>`)[0];
+            popup_97b32c8e70d54bfe9b3794c86438c8ce.setContent(html_d2cd26d238864ef6ac1222238f331856);
+        
+
+        circle_375893e88e1b4c7fac815000e74bd922.bindPopup(popup_97b32c8e70d54bfe9b3794c86438c8ce)
+        ;
+
+        
+    
+    
+            var circle_7acdf9ddc171468aa3f8ab59f3e79d5b = L.circle(
+                [-20.0194, -44.0561],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5930.54084622394, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_9d2562a569214dfdbc29a3e389450fa6 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a8be24ac77ed4c799eefc697a4ba2a3a = $(`<div id="html_a8be24ac77ed4c799eefc697a4ba2a3a" style="width: 100.0%; height: 100.0%;">Ibirité - Notificações: 22665</div>`)[0];
+            popup_9d2562a569214dfdbc29a3e389450fa6.setContent(html_a8be24ac77ed4c799eefc697a4ba2a3a);
+        
+
+        circle_7acdf9ddc171468aa3f8ab59f3e79d5b.bindPopup(popup_9d2562a569214dfdbc29a3e389450fa6)
+        ;
+
+        
+    
+    
+            var circle_bca1c67952814717be8ef831364c5f09 = L.circle(
+                [-17.8588, -41.509],
+                {"bubblingMouseEvents": true, "color": "crimson", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "crimson", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5734.818606957428, "stroke": true, "weight": 3}
+            ).addTo(map_dfddae650e04499fb0f178a6ad40b0d1);
+        
+    
+        var popup_91c0aca0630a4e1a8c3496000d840a42 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_4e11550527a640ae94fa106d280b95dc = $(`<div id="html_4e11550527a640ae94fa106d280b95dc" style="width: 100.0%; height: 100.0%;">Teófilo Otoni - Notificações: 21917</div>`)[0];
+            popup_91c0aca0630a4e1a8c3496000d840a42.setContent(html_4e11550527a640ae94fa106d280b95dc);
+        
+
+        circle_bca1c67952814717be8ef831364c5f09.bindPopup(popup_91c0aca0630a4e1a8c3496000d840a42)
+        ;
+
+        
+    
+</script>

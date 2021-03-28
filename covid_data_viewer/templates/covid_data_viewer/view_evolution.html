@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<title></title>
+
+{% load static %}
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="http://fonts.googleapis.com/css?family=Varela" rel="stylesheet" />
+<link href="{% static 'covid_data_viewer/default.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'covid_data_viewer/fonts.css' %}" rel="stylesheet" type="text/css" media="all" />
+
+
+</head>
+<body>
+<div id="wrapper">
+	<div id="header-wrapper">
+	<div id="header" class="container">
+		<div id="logo">
+			<h2><a href="#">COVID MG: EVOLUÇÃO</a></h2>
+		</div>
+		<div id="menu">
+			<ul>
+				<li><a href={% url 'home' %} accesskey="1" title="">Início</a></li>
+				<li><a href={% url 'supported_datasets' %} accesskey="2" title="">e-SUS Notifica</a></li>
+				<li><a href={% url 'about_data' %} accesskey="3" title="">Transformações de Dados</a></li>	
+				<li class="current_page_item"><a href={% url 'view_notifications' %} accesskey="4" title="">Gráficos</a></li>
+				<li><a href={% url 'contact' %} accesskey="5" title="">Contato</a></li>
+			</ul>
+		</div>
+	</div>
+	</div>
+	<div id="extra" class="container" >
+		<div id="three-column">
+			<div class="boxA">
+				<div class="box"> 
+					<ul>
+						<li>Gráficos relacionados ao número de notificações recebidas</li>
+						<li><a href={% url 'view_notifications' %} class="button">Notificações</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="boxB">
+				<div class="box"> 
+					<ul>
+						<li>Gráficos relacionados ao número de casos confirmados até agora</li>
+						<li><a href={% url 'view_cases' %} class="button">Confirmados</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="boxC">
+				<div class="box"> 
+					<ul>
+						<li>Gráficos relacionados à evolução da doença (internações, óbitos, etc...)</li>
+						<li><a href={% url 'view_evolution' %} class="button">Evolução</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div>
+    <canvas width=1200 height=250 id="domiciliar_by_date"></canvas>
+</div>
+<div>
+    <canvas width=1200 height=250 id="cura_by_date"></canvas>
+</div>
+<div>
+    <canvas width=1200 height=250 id="internado_by_date"></canvas>
+</div>
+<div>
+    <canvas width=1200 height=250 id="uti_by_date"></canvas>
+</div>
+<div>
+    <canvas width=1200 height=250 id="obito_by_date"></canvas>
+</div>
+
+
+
+</body>
+</html>
+
+<script>
+
+window.onload = function () {
+    var ctx_domiciliar_by_date = document.getElementById('domiciliar_by_date').getContext('2d');
+
+    var domiciliar_by_date = new Chart(ctx_domiciliar_by_date, {
+        type: 'line',
+        data: {
+            labels: {{domiciliar_x|safe}},
+            datasets: [{
+                label: 'Pacientes em tratamento domiciliar',
+                type: 'bar',
+                yAxisID: 'domiciliar_y',
+                data: {{domiciliar_y|safe}},
+                backgroundColor: 'rgba(0, 55, 84, 0.2)',
+                borderColor: 'rgba(0, 55, 84, 1)',
+                borderWidth: 1,
+            },
+            {
+                label: 'Média dos últimos 7 dias (tratamento domiciliar)',
+                yAxisID: 'domiciliar_y_media',
+                data: {{domiciliar_y_media|safe}},
+                backgroundColor: 'rgba(0, 181, 84, 0.2)',
+                borderColor: 'rgba(0, 181, 84, 1)',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Pacientes em tratamento domiciliar',
+                fontSize : 24
+            },
+            scales: {
+                yAxes: [
+                {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    id: 'domiciliar_y',
+                }, 
+                {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    id: 'domiciliar_y_media',
+                    gridLines: {drawOnChartArea: false}
+                }]
+            }
+        }
+    });
+
+    var ctx_cura_by_date = document.getElementById('cura_by_date').getContext('2d');
+
+    var cura_by_date = new Chart(ctx_cura_by_date, {
+        type: 'line',
+        data: {
+            labels: {{cura_x|safe}},
+            datasets: [{
+                label: 'Pacientes curados',
+                type: 'bar',
+                yAxisID: 'cura_y',
+                data: {{cura_y|safe}},
+                backgroundColor: 'rgba(0, 55, 84, 0.2)',
+                borderColor: 'rgba(0, 55, 84, 1)',
+                borderWidth: 1,
+            },
+            {
+                label: 'Média dos últimos 7 dias (curados)',
+                yAxisID: 'cura_y_media',
+                data: {{cura_y_media|safe}},
+                backgroundColor: 'rgba(0, 181, 84, 0.2)',
+                borderColor: 'rgba(0, 181, 84, 1)',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Pacientes curados',
+                fontSize : 24
+            },
+            scales: {
+                yAxes: [
+                {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    id: 'cura_y',
+                }, 
+                {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    id: 'cura_y_media',
+                    gridLines: {drawOnChartArea: false}
+                }]
+            }
+        }
+    });
+
+    var ctx_internado_by_date = document.getElementById('internado_by_date').getContext('2d');
+
+    var internado_by_date = new Chart(ctx_internado_by_date, {
+        type: 'line',
+        data: {
+            labels: {{internado_x|safe}},
+            datasets: [{
+                label: 'Pacientes internados',
+                type: 'bar',
+                yAxisID: 'internado_y',
+                data: {{internado_y|safe}},
+                backgroundColor: 'rgba(0, 55, 84, 0.2)',
+                borderColor: 'rgba(0, 55, 84, 1)',
+                borderWidth: 1,
+            },
+            {
+                label: 'Média dos últimos 7 dias (internados)',
+                yAxisID: 'internado_y_media',
+                data: {{internado_y_media|safe}},
+                backgroundColor: 'rgba(0, 181, 84, 0.2)',
+                borderColor: 'rgba(0, 181, 84, 1)',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Pacientes internados',
+                fontSize : 24
+            },
+            scales: {
+                yAxes: [
+                {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    id: 'internado_y',
+                }, 
+                {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    id: 'internado_y_media',
+                    gridLines: {drawOnChartArea: false}
+                }]
+            }
+        }
+    });
+
+   var ctx_uti_by_date = document.getElementById('uti_by_date').getContext('2d');
+
+    var uti_by_date = new Chart(ctx_uti_by_date, {
+        type: 'line',
+        data: {
+            labels: {{uti_x|safe}},
+            datasets: [{
+                label: 'Pacientes internados em UTI',
+                type: 'bar',
+                yAxisID: 'uti_y',
+                data: {{uti_y|safe}},
+                backgroundColor: 'rgba(0, 55, 84, 0.2)',
+                borderColor: 'rgba(0, 55, 84, 1)',
+                borderWidth: 1,
+            },
+            {
+                label: 'Média dos últimos 7 dias (UTI)',
+                yAxisID: 'uti_y_media',
+                data: {{uti_y_media|safe}},
+                backgroundColor: 'rgba(0, 181, 84, 0.2)',
+                borderColor: 'rgba(0, 181, 84, 1)',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Pacientes internados em UTI',
+                fontSize : 24
+            },
+            scales: {
+                yAxes: [
+                {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    id: 'uti_y',
+                }, 
+                {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    id: 'uti_y_media',
+                    gridLines: {drawOnChartArea: false}
+                }]
+            }
+        }
+    });
+
+   var ctx_obito_by_date = document.getElementById('obito_by_date').getContext('2d');
+
+    var obito_by_date = new Chart(ctx_obito_by_date, {
+        type: 'line',
+        data: {
+            labels: {{obito_x|safe}},
+            datasets: [{
+                label: 'Pacientes que vieram a óbito',
+                type: 'bar',
+                yAxisID: 'obito_y',
+                data: {{obito_y|safe}},
+                backgroundColor: 'rgba(0, 55, 84, 0.2)',
+                borderColor: 'rgba(0, 55, 84, 1)',
+                borderWidth: 1,
+            },
+            {
+                label: 'Média dos últimos 7 dias (óbitos)',
+                yAxisID: 'obito_y_media',
+                data: {{obito_y_media|safe}},
+                backgroundColor: 'rgba(0, 181, 84, 0.2)',
+                borderColor: 'rgba(0, 181, 84, 1)',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Pacientes que vieram a óbito',
+                fontSize : 24
+            },
+            scales: {
+                yAxes: [
+                {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    id: 'obito_y',
+                }, 
+                {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    id: 'obito_y_media',
+                    gridLines: {drawOnChartArea: false}
+                }]
+            }
+        }
+    });
+}
+
+</script>
