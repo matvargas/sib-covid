@@ -1,7 +1,7 @@
 # sib-covid
 ## Sistema de visualização de dados de COVID-19 no estado de Minas Gerais
 
-O sistema foi desenvolvido utilizando as linguagens python e javascript. No lado do python utilizamos o framework Django para o desenvolvimento da aplicação web e no javascript utilizandos a biblioteca chart.js para a renderização dos gráficos.
+O sistema foi desenvolvido utilizando as linguagens python e javascript. No lado do python utilizamos o framework Django para o desenvolvimento da aplicação web e no javascript utilizamos a biblioteca Chart.js para a renderização dos gráficos.
 
 
 ### Arquivos importantes:
