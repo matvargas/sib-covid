@@ -32,6 +32,30 @@
 		</div>
 	</div>
 	</div>
+	<div id="page" class="container">
+		<div class="title">
+			<h2>TRASNFORMAÇÕES DE DADOS</h2>
+			<span class="byline">Como passamos de arquivos .csv para os gráficos apresentados</span> </div>
+		<p>
+		Antes de utilizarmos os dados para a confecção dos gráficos disponibilizados foi necessário realizar o procedimento de ETL para garantir que os mesmos estivessem limpos e consistentes.
+		Esse procedimento foi dividido em cinco fases, sendo elas: leitura dos dados, remoção de colunas majoritariamente nulas, remoção de registros com muitos campos nulos, formatação dos campos de datas e carregamento dos dados.
+
+		</p>
+		<p>
+		Na primeira fase de leitura dos dados o dataset foi baixado do sistema e-SUS Notifica e carregado dentro do script de ETL.
+		Logo em seguida, após realizar uma análise quantitativa da base removemos uma série de colunas devido ao baixo número de dados preenchidos nas mesmas.
+		Após a normalização das colunas também eliminamos linhas que continham poucas informações, isto é, com muitos campos faltantes ou com campos cruciais definidos como nulos.
+		O último procedimento antes do carregamento dos dados foi a formatação dos campos de datas para um padrão que seria reconhecido pelo nosso sistema de bancos de dados (MySQL).
+		Por fim, após toda a limpeza e normalização da base os dados foram carregados ao banco.		
+		</p>
+
+		<p>
+		Caso queira saber sobre o processo de ETL, ou do projeto como um todo o código está disponível em um repositório no GitHub.
+		</p>
+		<ul class="actions">
+			<li><a href="https://github.com/matvargas/sib-covid" class="button">Acesse o repositório</a></li>
+		</ul>
+	</div>
 </div>
 </body>
 </html>

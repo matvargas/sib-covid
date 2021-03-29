@@ -8,30 +8,37 @@ from sqlalchemy import create_engine
 import pandas as pd
 from pandas import DataFrame
 
-db_user="root"
-db_password="@rthur96"
+#Variaveis globais para conexao no banco
+db_user="sibcovid"
+db_password="sibcovid"
 db_name="sib_covid"
+
+#Datas iniciais e finais das buscas
 min_date = "2020-01-01"
 max_date = "2021-02-02"
 
+#Renderiza home
 def home(request):
       return render(
         request,
         'covid_data_viewer/home.html',
       )
 
+#Renderiza suported_datasets
 def supported_datasets(request):
       return render(
         request,
         'covid_data_viewer/supported_datasets.html',
       )
 
+#Renderiza about_data
 def about_data(request):
       return render(
         request,
         'covid_data_viewer/about_data.html',
       )
 
+#Realiza a conexão com o banco de dados MySQL
 def get_db_connection(db_user, db_password, db_name):
     conn_str = "mysql+pymysql://{user}:{pw}@localhost/{db}".format(user=db_user, pw=db_password, db=db_name)
     engine = create_engine(conn_str)
@@ -39,7 +46,7 @@ def get_db_connection(db_user, db_password, db_name):
     return conn
 
 
-
+#Calcula os dados para o gráfico de notificações por idade
 def get_notifications_by_age():
   conn = get_db_connection(db_user, db_password, db_name)
   sql = "SELECT idade, count(idade) from dados_covid_mg "
@@ -55,13 +62,17 @@ def get_notifications_by_age():
                     min_date_value=min_date, 
                     max_date_value=max_date)
 
+  #Executa a query
   rs = conn.execute(sql)
   df = DataFrame(rs.fetchall())
   df = df.rename(columns={0 : 'idade', 1 : 'notificacoes'})
+  
+  #Transforma o dataframe em listas para adicionar aos eixos dos gráficos
   xaxis = df['idade'].tolist()
   yaxis = df['notificacoes'].tolist()
   return (xaxis, yaxis)
 
+#Calcula os dados para o gráfico de notificações por gênero
 def get_notifications_by_gender():
   conn = get_db_connection(db_user, db_password, db_name)
   sql = "SELECT sexo, count(sexo) FROM dados_covid_mg "
@@ -70,13 +81,17 @@ def get_notifications_by_gender():
   sql = sql + "GROUP BY sexo"
   sql = sql.format(min_date_value=min_date, max_date_value=max_date)
 
+  #Executa a query
   rs = conn.execute(sql)
   df = DataFrame(rs.fetchall())
   df = df.rename(columns={0 : 'genero', 1 : 'notificacoes'})
+
+  #Transforma o dataframe em listas para adicionar aos eixos dos gráficos
   xaxis = df['genero'].tolist()
   yaxis = df['notificacoes'].tolist()
   return (xaxis, yaxis)
 
+#Calcula os dados para o gráfico de notificações por data
 def get_notifications_by_date():
   conn = get_db_connection(db_user, db_password, db_name)
   sql = "SELECT dataNotificacao, count(dataNotificacao) FROM dados_covid_mg "
@@ -85,16 +100,23 @@ def get_notifications_by_date():
   
   sql = sql.format(min_date_value=min_date, max_date_value=max_date)
 
+  #Executa a query
   rs = conn.execute(sql)
   df = DataFrame(rs.fetchall())
   df = df.rename(columns={0 : 'datas', 1 : 'notificacoes'})
+
+  #Calcula a media dos útlimos 7 dias para adicionar no gráfico
   df['media_7_dias'] = df['notificacoes'].rolling(window=7).mean()
 
+  #Transforma o dataframe resultante em listas para adicionas aos eixos dos gráficos
   xaxis = (df['datas'].astype(str)).tolist()
   yaxis = df['notificacoes'].tolist()
   yaxis_2 = (df['media_7_dias'].fillna(0)).tolist()
   return (xaxis, yaxis, yaxis_2)
 
+#Renderiza view_notifications
+#Essa função chama as outras auxiliares para gerarem os eixos dos gráficos e passa os dados
+#para serem renderizados no arquivo .html
 def view_notifications(request):
   xaxis_n_age, yaxis_n_age = get_notifications_by_age()
   xaxis_n_gender, yaxis_n_gender = get_notifications_by_gender()
@@ -168,6 +190,9 @@ def get_cases_by_date():
   yaxis_2 = (df['media_7_dias'].fillna(0)).tolist()
   return (xaxis, yaxis, yaxis_2)
 
+#Renderiza view_cases
+#Essa função chama as outras auxiliares para gerarem os eixos dos gráficos e passa os dados
+#para serem renderizados no arquivo .html
 def view_cases(request):
   xaxis_c_age, yaxis_c_age = get_cases_by_age()
   xaxis_c_gender, yaxis_c_gender = get_cases_by_gender()
@@ -184,11 +209,15 @@ def view_cases(request):
     'covid_data_viewer/view_cases.html',
     context
   )
-  
+
+#Calcula os eixos de todos os gráficos de evolução da doença, nessa função são realizadas
+#várias consultas ao banco de dados, uma para cada tipo de evolução
 def get_evolution_by_date():
     conn = get_db_connection(db_user, db_password, db_name)
     sql = "select dataEncerramento, count(evolucaoCaso) from dados_covid_mg where evolucaoCaso = \"Internado\" and dataEncerramento != \"NULL\" group by dataEncerramento;"
     rs = conn.execute(sql)
+    
+    #Realiza as consultas ao banco e armazena os resultados em dataframes
     internado = DataFrame(rs.fetchall())
     internado = internado.rename(columns={0 : 'dataEncerramento', 1 : 'notificacoes'})
     internado['media_7_dias'] = ((internado['notificacoes'].rolling(window=7).mean()).fillna(0))
@@ -198,7 +227,6 @@ def get_evolution_by_date():
     internadoUTI = DataFrame(rs.fetchall())
     internadoUTI = internadoUTI.rename(columns={0 : 'dataEncerramento', 1 : 'notificacoes'})
     internadoUTI['media_7_dias'] = ((internadoUTI['notificacoes'].rolling(window=7).mean()).fillna(0))
-
 
     sql = "select dataEncerramento, count(evolucaoCaso) from dados_covid_mg where evolucaoCaso = \"Cura\" and dataEncerramento != \"NULL\" group by dataEncerramento;"
     rs = conn.execute(sql)
@@ -220,6 +248,7 @@ def get_evolution_by_date():
     domiciliar = domiciliar.rename(columns={0 : 'dataEncerramento', 1 : 'notificacoes'})
     domiciliar['media_7_dias'] = ((domiciliar['notificacoes'].rolling(window=7).mean()).fillna(0))
 
+    #Calcula os eixos tradicionais e a média de 7 dias de cada evolução
     internado_x = (internado['dataEncerramento'].astype(str)).tolist()
     internado_y = internado['notificacoes'].tolist()
     internado_y_media = internado['media_7_dias'].tolist()
@@ -245,6 +274,9 @@ def get_evolution_by_date():
 
     return (internado_x, internado_y, internado_y_media, uti_x, uti_y, uti_y_media, cura_x, cura_y, cura_y_media, obito_x, obito_y, obito_y_media, domiciliar_x, domiciliar_y, domiciliar_y_media)
 
+#Renderiza view_evolution
+#Essa função chama as outras auxiliares para gerarem os eixos dos gráficos e passa os dados
+#para serem renderizados no arquivo .html
 def view_evolution(request):
   internado_x, internado_y, internado_y_media, uti_x, uti_y, uti_y_media, cura_x, cura_y, cura_y_media, obito_x, obito_y, obito_y_media, domiciliar_x, domiciliar_y, domiciliar_y_media = get_evolution_by_date()
   context={'internado_x' : internado_x, 
@@ -267,7 +299,8 @@ def view_evolution(request):
     'covid_data_viewer/view_evolution.html',
     context
   )
-  
+
+#Renderiza contact
 def contact(request):
       return render(
         request,

@@ -16,6 +16,7 @@ import seaborn as sns
 
 ##Utilitarias
 
+#Cria conexão com o banco
 def get_db_connection(db_user, db_password, db_name):
     conn_str = "mysql+pymysql://{user}:{pw}@localhost/{db}".format(user=db_user, pw=db_password, db=db_name)
     engine = create_engine(conn_str)
@@ -89,10 +90,13 @@ def top_20_cities_notifications(conn):
     df = DataFrame(rs.fetchall())
     df = df.rename(columns={0 : 'municipio', 1 : 'notificacoes'})
 
+    #Soma todas as notificações
     sum_notifications = 0
     for t in df.itertuples():
         sum_notifications = sum_notifications + t.notificacoes
 
+    #Calcula o tamanho dos círculos de cada cidade de acordo com sua participação na quantidade
+    #de notificações
     values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     notifications = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     for t in df.itertuples():
@@ -101,7 +105,8 @@ def top_20_cities_notifications(conn):
             continue
         values[int(index)] = (float(t.notificacoes)/float(sum_notifications))*20
         notifications[int(index)] = t.notificacoes
-        
+
+    #Enriquece os dados da base com posição geográfica de algumas cidades    
     lon = [-43.9542, 
            -48.2622, 
            -44.0529, 
@@ -175,6 +180,7 @@ def top_20_cities_notifications(conn):
     'value': values,
     }, dtype=str)
 
+    #Desenha os círculos e os labels
     for i in range(0,len(data)):
         folium.Circle(
             location=[data.iloc[i]['lat'], data.iloc[i]['lon']],
@@ -185,6 +191,7 @@ def top_20_cities_notifications(conn):
             fill_color='crimson'
         ).add_to(m)
 
+    #Salva o html do gráfico
     m.save('/home/arthur/sib-covid/covid_data_viewer/templates/mapstop_20_cities_notifications.html')
 
 def graph_notifications_by_gender(conn, min_date, max_date):
@@ -232,16 +239,13 @@ def test_results_by_date(conn, min_date, max_date):
         show_enclosure=False, 
         target_enclosure=circlify.Circle(x=0, y=0, r=1)
     )
-    # Create just a figure and only one subplot
+
     fig, ax = plt.subplots(figsize=(10,10))
 
-    # Title
     ax.set_title('Resultados dos Testes (De ' + min_date + ' à ' + max_date + ')')
 
-    # Remove axes
     ax.axis('off')
 
-    # Find axis boundaries
     lim = max(
         max(
             abs(circle.x) + circle.r,
@@ -252,7 +256,6 @@ def test_results_by_date(conn, min_date, max_date):
     plt.xlim(-lim, lim)
     plt.ylim(-lim, lim)
 
-    # list of labels
     labels = df['Name']
 
     for circle, label in zip(circles, labels):
@@ -292,30 +295,23 @@ def evolution_of_cases(conn):
 
     df = ((((internado.append(internadoUTI, ignore_index=True)).append(obito, ignore_index=True)).append(cura, ignore_index=True)).append(domiciliar, ignore_index=True))
 
-    print(df)
     
-    # Create a grid : initialize it
-    #g = sns.FacetGrid(df, col='evolucaoCaso', hue='evolucaoCaso', col_wrap=4, )
+    g = sns.FacetGrid(df, col='evolucaoCaso', hue='evolucaoCaso', col_wrap=4, )
 
-    # Add the line over the area with the plot function
-    #g = g.map(plt.plot, 'dataEncerramento', 'notificacoes')
+    g = g.map(plt.plot, 'dataEncerramento', 'notificacoes')
     
-    # Fill the area with fill_between
-    #g = g.map(plt.fill_between, 'dataEncerramento', 'notificacoes', alpha=0.2).set_titles("{col_name} evolucaoCaso")
+    g = g.map(plt.fill_between, 'dataEncerramento', 'notificacoes', alpha=0.2).set_titles("{col_name} evolucaoCaso")
     
-    # Control the title of each facet
-    #g = g.set_titles("{col_name}")
+    g = g.set_titles("{col_name}")
     
-    # Add a title for the whole plot
-    #plt.subplots_adjust(top=0.92)
-    #g = g.fig.suptitle('Evolução dos casos notificados')
+    plt.subplots_adjust(top=0.92)
+    g = g.fig.suptitle('Evolução dos casos notificados')
 
-    # Show the graph
-    #plt.show()
+    plt.show()
 
 if __name__ == "__main__":
-    db_user="root"
-    db_password="@rthur96"
+    db_user="sibcovid"
+    db_password="sibcovid"
     db_name="sib_covid"
 
     conn = get_db_connection(db_user, db_password, db_name)
@@ -326,26 +322,14 @@ if __name__ == "__main__":
     max_date = "2021-02-02"
 
     #homepage
-    #top_20_cities_notifications(conn)
+    top_20_cities_notifications(conn)
 
     #notificacoes
-    #graph_notifications_by_age(conn, min_age, max_age, min_date, max_date)
-    #graph_notifications_by_gender(conn, min_date, max_date)
-
-    #casos confirmados
-    #graph_notifications_by_age(conn, min_age, max_age, min_date, max_date)
-    #graph_notifications_by_gender(conn, min_date, max_date)
-
-    #internacao
-    #graph_notifications_by_age(conn, min_age, max_age, min_date, max_date)
-    #graph_notifications_by_gender(conn, min_date, max_date)
-
-    #óbitos
-    #graph_notifications_by_age(conn, min_age, max_age, min_date, max_date)
-    #graph_notifications_by_gender(conn, min_date, max_date)
-
+    graph_notifications_by_age(conn, min_age, max_age, min_date, max_date)
+    graph_notifications_by_gender(conn, min_date, max_date)
+    
     #testes
-    #test_results_by_date(conn, min_date, max_date)
+    test_results_by_date(conn, min_date, max_date)
 
     #evolucao
     evolution_of_cases(conn)

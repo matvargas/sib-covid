@@ -1,15 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-Design by TEMPLATED
-http://templated.co
-Released for free under the Creative Commons Attribution License
 
-Name       : PlainDisplay 
-Description: A two-column, fixed-width design with dark color scheme.
-Version    : 1.0
-Released   : 20140309
-
--->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -75,7 +65,7 @@ Released   : 20140309
 				<h2>COVID MG</h2>
 				<span class="byline">Todos os dados que utilizamos são provenientes do Ministério da Saúde</span> </div>
 			<ul class="actions">
-				<li><a href="#" class="button">Conheça o e-SUS NOTIFICA</a></li>
+				<li><a href={% url 'supported_datasets' %} class="button">Conheça o e-SUS NOTIFICA</a></li>
 			</ul>
 		</div>
 	</div>
@@ -101,6 +91,8 @@ Released   : 20140309
 </div>
 </body>
 </html>
+
+<!--A partir daqui temos o script da renderização do gráfico de top20 cidades com maior número de notificações-->
 <script>    
     
             var map_dfddae650e04499fb0f178a6ad40b0d1 = L.map(
